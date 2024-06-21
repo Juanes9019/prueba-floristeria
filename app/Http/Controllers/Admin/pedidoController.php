@@ -74,6 +74,7 @@ class PedidoController extends Controller
     }
 
     //controlador para rechazar pedido en flutter
+    //prueba
     public function rechazarPedido($id)
     {
         try {
