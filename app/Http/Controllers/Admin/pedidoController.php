@@ -47,6 +47,12 @@ class PedidoController extends Controller
 
     //funcionalidad en flutter
 
+    public function pedidos_usuario($user_id)
+    {
+        $pedidos = Pedido::where('user_id', $user_id)->get();
+        return response()->json($pedidos, 200);
+    }
+
     //controlador para ver pedido en flutter
     public function getPedidos()
     {
@@ -72,7 +78,7 @@ class PedidoController extends Controller
 
         return response()->json(['message' => 'Estado del pedido actualizado correctamente', 'pedido' => $pedido], 200);
     }
-
+ 
     //controlador para rechazar pedido en flutter
     //prueba
     public function rechazarPedido($id)
