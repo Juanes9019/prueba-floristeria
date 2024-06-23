@@ -15,7 +15,7 @@ class VerifyCsrfToken extends Middleware
         'api/csrf-token',
         'api/pedido/aceptar/*',
         'api/pedido/rechazar/*',
-        'login',
+        'api/login',
     ];
 
     //midleware para dar permiso en flutter

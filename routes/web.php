@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\pedidoController;
 use App\Http\Controllers\Admin\detalleController;
 use App\Http\Controllers\Admin\inventarioController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ApiLoginController;
 use App\Http\Controllers\carritoController;
 
 
@@ -109,11 +110,11 @@ Route::get('admin/pedido/{id}/detalles', [PedidoController::class, 'mostrar'])->
 Route::get('admin/detalle', [DetalleController::class, 'index'])->name('detalles');
 
 
-
 });
 
 //rutas para login en flutter
-Route::post('login', [LoginController::class, 'login']);
+Route::post('/api/login', [ApiLoginController::class, 'login']);
+
 
 //rutas para pedido ver los pedidos de usuario
 Route::get('api/pedido/user/{user_id}', [PedidoController::class, 'pedidos_usuario']);
