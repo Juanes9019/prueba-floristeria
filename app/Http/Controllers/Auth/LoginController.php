@@ -37,11 +37,39 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectPath(){
-        if(auth()->user()->hasRole("admin")){
-            return "dashboard";
+    public function login(Request $request)
+    {
+        $this->validateLogin($request);
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
+
+            // Devuelve una respuesta JSON con el token y el rol del usuario
+            return response()->json([
+                'user' => $user,
+                'role' => $user->hasRole('admin') ? 'admin' : 'client'
+            ]);
         }
-        return "/";
+
+        throw ValidationException::withMessages([
+            'email' => [trans('auth.failed')],
+        ]);
     }
 
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->hasRole('admin')) {
+            return redirect()->route('dashboard');
+        }
+
+        return redirect('/');
+    }
 }

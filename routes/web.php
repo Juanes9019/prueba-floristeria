@@ -112,10 +112,11 @@ Route::get('admin/detalle', [DetalleController::class, 'index'])->name('detalles
 
 });
 
+//rutas para login en flutter
+Route::post('login', [LoginController::class, 'login']);
+
 //rutas para pedido ver los pedidos de usuario
 Route::get('api/pedido/user/{user_id}', [PedidoController::class, 'pedidos_usuario']);
-
-
 
 //rutas para flutter pedido
 Route::get('api/pedido', [pedidoController::class, 'getPedidos'])->name('api.pedido');
