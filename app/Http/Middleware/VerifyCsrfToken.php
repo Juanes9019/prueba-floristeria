@@ -14,7 +14,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'api/csrf-token',
         'api/pedido/aceptar/*',
-        'api/pedido/rechazar/*'
+        'api/pedido/rechazar/*',
+        'login',
     ];
 
     //midleware para dar permiso en flutter
