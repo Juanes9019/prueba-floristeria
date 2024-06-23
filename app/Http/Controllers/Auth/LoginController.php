@@ -37,6 +37,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    //controlador para flutter 
     public function login(Request $request)
     {
         // Validar las credenciales
