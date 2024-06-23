@@ -39,21 +39,23 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $this->validateLogin($request);
+        // Validar las credenciales
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($request->only('email', 'password'))) {
+        // Intentar autenticar al usuario
+        if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Devuelve una respuesta JSON con el token y el rol del usuario
-            return response()->json([
-                'user' => $user,
-                'role' => $user->hasRole('admin') ? 'admin' : 'client'
-            ]);
+            // Verificar el tipo de usuario
+            if ($user->type == 1) {
+                return response()->json(['role' => 'admin'], 200);
+            } else {
+                return response()->json(['role' => 'user'], 200);
+            }
         }
 
-        throw ValidationException::withMessages([
-            'email' => [trans('auth.failed')],
-        ]);
+        // Si las credenciales son incorrectas, devolver un error
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     protected function validateLogin(Request $request)
